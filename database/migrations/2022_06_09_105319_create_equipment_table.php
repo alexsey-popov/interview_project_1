@@ -17,7 +17,7 @@ class CreateEquipmentTable extends Migration
             $table->id();
             $table->foreignId('equipment_type_id')->constrained()->onDelete('cascade');
             $table->string('serial_number')->unique();
-            $table->string('notes');
+            $table->string('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
