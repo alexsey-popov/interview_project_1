@@ -12,7 +12,16 @@ class Equipment extends Model
     use SoftDeletes;
 
     /**
-     * @var bool
+     * The attributes that are mass assignable.
+     *
+     * @var array
      */
-    public $timestamps = true;
+    protected $fillable = ['equipment_type_id', 'serial_number', 'notes'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

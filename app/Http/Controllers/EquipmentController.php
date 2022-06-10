@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEquipmentRequest;
 use App\Http\Requests\UpdateEquipmentRequest;
+use App\Http\Resources\EquipmentCollection;
+use App\Http\Resources\EquipmentResource;
 use App\Models\Equipment;
+use Illuminate\Http\Response;
 
 class EquipmentController extends Controller
 {
@@ -15,7 +18,7 @@ class EquipmentController extends Controller
      */
     public function index()
     {
-        //
+        return new EquipmentCollection(Equipment::paginate(1));
     }
 
     /**
@@ -36,7 +39,9 @@ class EquipmentController extends Controller
      */
     public function store(StoreEquipmentRequest $request)
     {
-        //
+        $new = Equipment::create($request->validated());
+
+        return new EquipmentResource($new);
     }
 
     /**
@@ -47,7 +52,7 @@ class EquipmentController extends Controller
      */
     public function show(Equipment $equipment)
     {
-        //
+        return new EquipmentResource($equipment);
     }
 
     /**
@@ -70,7 +75,9 @@ class EquipmentController extends Controller
      */
     public function update(UpdateEquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update($request->validated());
+
+        return new EquipmentResource($equipment);
     }
 
     /**
@@ -81,6 +88,8 @@ class EquipmentController extends Controller
      */
     public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
+
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
