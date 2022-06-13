@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Equipment;
+use App\Models\EquipmentType;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        Equipment::truncate();
+        EquipmentType::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $this->call(
             [
                 EquipmentTypeSeeder::class,
