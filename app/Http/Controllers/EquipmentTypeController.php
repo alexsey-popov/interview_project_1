@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Filters\EquipmentTypeFilter;
 use App\Http\Requests\StoreEquipmentTypeRequest;
 use App\Http\Requests\UpdateEquipmentTypeRequest;
-use App\Http\Resources\EquipmentTypeCollection;
 use App\Http\Resources\EquipmentTypeResource;
 use App\Models\EquipmentType;
 
@@ -15,9 +15,9 @@ class EquipmentTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(EquipmentTypeFilter $filter)
     {
-        return new EquipmentTypeCollection(EquipmentType::paginate(1));
+        return EquipmentTypeResource::collection(EquipmentType::filter($filter)->paginate(5));
     }
 
     /**
