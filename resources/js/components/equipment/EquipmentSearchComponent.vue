@@ -1,0 +1,87 @@
+<template>
+    <div class="card mb-5">
+                    <div class="card-header">
+                        Поиск оборудования
+                    </div>
+
+                    <div class="card-body">
+
+                        <form>
+                        <fieldset :disabled="loading">
+                           
+                           <div class="container">
+                               <div class="row">
+                                   <div class="col-md-6 mb-3">
+                                        <label for="EquipmentSearch_search" class="form-label">Поиск</label>
+                                        <input name="search" id="EquipmentSearch_search" class="form-control" v-model="equipment.search" placeholder="По серийному номеру/примечанию">
+                                   </div>
+                                   <div class="col-md-6 mb-3">
+                                        <label for="EquipmentSearch_id" class="form-label">Код оборудования</label>
+                                        <input name="id" id="EquipmentSearch_id" class="form-control" v-model="equipment.id">
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4 mb-3">
+                                        <label for="EquipmentSearch_search_equipment_type" class="form-label">Тип оборудования</label>
+                                        <input name="search_equipment_type" v-model="equipment.search_equipment_type" class="form-control" id="EquipmentSearch_search_equipment_type">
+                                    </div>
+                                        
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="EquipmentSearch_search_serial_number" class="form-label">Серийные номера</label>
+                                        <input name="search_serial_number" id="EquipmentSearch_search_serial_number" class="form-control" v-model="equipment.search_serial_number">
+                                    </div>
+
+                                    <div class="col-md-4 mb-3">
+                                        <label for="EquipmentSearch_search_notes" class="form-label">Примечание</label>
+                                        <input name="search_notes" id="EquipmentSearch_search_notes" class="form-control" v-model="equipment.search_notes">
+                                    </div>
+                               </div>
+                           </div>
+
+                           <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Поиск</button>
+                                <a href="?" class="btn btn-secondary">Сбросить</a>
+                           </div>
+
+                        </fieldset>
+                        </form>                      
+                       
+
+                        <error :haveEror="error"></error>
+                        <spiner :loading="loading"></spiner>
+                    </div>
+                </div>
+</template>
+
+<script>
+    export default {
+        props: [
+            'equipmentId'
+        ],
+        data() {
+            return {
+                loading: false,
+                error: false,
+
+                equipment: {
+                    id: null,
+                    search_equipment_type: null,
+                    search_serial_number: null,
+                    search_notes: null,
+                    search: null,
+                }
+
+            }
+        },
+        mounted() {
+             this.equipment = {
+                 id: this.$route.query.id,
+                 search_equipment_type: this.$route.query.search_equipment_type,
+                 search_serial_number: this.$route.query.search_serial_number,
+                 search_notes: this.$route.query.search_notes,
+                 search: this.$route.query.search,
+             }
+        }
+    }
+</script>

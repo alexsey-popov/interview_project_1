@@ -8,6 +8,45 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+import AppComponent from './components/AppComponent'
+import Equipment from './components/equipment/EquipmentComponent'
+import EquipmentAdd from './components/equipment/EquipmentAddComponent'
+import EquipmentShow from './components/equipment/EquipmentShowComponent'
+import EquipmentTypes from './components/equipmentTypes/EquipmentTypesComponent'
+
+
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        {
+            path: '/equipment',
+            name: 'equipment',
+            component: Equipment
+        },
+        {
+            path: '/equipment/add',
+            name: 'equipment-add',
+            component: EquipmentAdd,
+        },
+        {
+            path: '/equipment/:equipmentId',
+            name: 'equipment-show',
+            component: EquipmentShow,
+            props: true,
+        },
+        {
+            path: '/equipment-type',
+            name: 'equipmentTypes',
+            component: EquipmentTypes
+        },
+    ],
+    linkActiveClass: "active",
+})
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -19,7 +58,19 @@ window.Vue = require('vue').default;
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+//Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('app-component', require('./components/AppComponent.vue').default);
+Vue.component('error', require('./components/templates/Error.vue').default);
+Vue.component('spiner', require('./components/templates/Spiner.vue').default);
+Vue.component('equipment-search', require('./components/equipment/EquipmentSearchComponent.vue').default);
+
+
+// const router = new VueRouter({mode: 'history', routes: routes});
+    //  new Vue(
+    //    Vue.util.extend(
+    //    { router },
+    //    App
+    //   )).$mount('#app');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -28,5 +79,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+  el: '#app',
+  comments: {AppComponent},
+  router,
 });
