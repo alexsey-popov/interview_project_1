@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user()->createToken('api')->plainTextToken;
+Route::middleware('auth:sanctum')->get('/get-bearer-token', function (Request $request) {
+    return ['token' => $request->user()->createToken('api')->plainTextToken];
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
