@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\EquipmentTypeController;
-use \App\Http\Controllers\EquipmentController;
+use App\Http\Controllers\EquipmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->createToken('api')->plainTextToken;
 });
 
-Route::get('equipment-type', [EquipmentTypeController::class, 'index'])->name('equipment-type');
+Route::group(['middleware' => 'auth:sanctum'], function() {
+    Route::get('equipment-type', [EquipmentTypeController::class, 'index'])->name('equipment-type');
 
-Route::apiResource('equipment', EquipmentController::class);
+    Route::apiResource('equipment', EquipmentController::class);
+});
