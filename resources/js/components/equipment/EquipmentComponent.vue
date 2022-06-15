@@ -7,9 +7,12 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <router-link :to="{name: 'equipment-add'}" class="btn btn-primary">Добавить оборудование</router-link>
+                        Список оборудования
                     </div>
                     <div class="card-body">
+                        <div class="mb-3">
+                            <router-link :to="{name: 'equipment-add'}" class="btn btn-primary">Добавить оборудование</router-link>
+                        </div>
                         <table class="table table-striped">
                     <thead>
                         <tr>
@@ -27,7 +30,7 @@
                     </tbody>
                 </table>
 
-               
+
                 <error :haveEror="error"></error>
                 <spiner :loading="loading"></spiner>
                     </div>

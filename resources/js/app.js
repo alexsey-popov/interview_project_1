@@ -17,6 +17,8 @@ import Equipment from './components/equipment/EquipmentComponent'
 import EquipmentAdd from './components/equipment/EquipmentAddComponent'
 import EquipmentShow from './components/equipment/EquipmentShowComponent'
 import EquipmentTypes from './components/equipmentTypes/EquipmentTypesComponent'
+import Login from './components/auth/LoginComponent'
+import Register from './components/auth/RegisterComponent'
 
 
 const router = new VueRouter({
@@ -42,6 +44,16 @@ const router = new VueRouter({
             path: '/equipment-type',
             name: 'equipmentTypes',
             component: EquipmentTypes
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
         },
     ],
     linkActiveClass: "active",

@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <h1 class="mb-3 mt-3">Тестовое задание</h1>
-             
-        <ul class="nav nav-pills mb-3">
+
+        <ul class="nav nav-pills mb-5">
             <li class="nav-item active">
                 <router-link :to="{name: 'equipment'}" class="nav-link">Оборудование</router-link>
             </li>
@@ -16,7 +16,7 @@
                 <router-link :to="{name: 'register'}" class="nav-link">Зарегистрироваться</router-link>
             </li>
             <li class="nav-item">
-                <router-link :to="{name: 'logout'}" class="nav-link">Выйти</router-link>
+                <button @click="logout" class="nav-link">Выйти из профиля</button>
             </li>
         </ul>
 
@@ -33,8 +33,20 @@
 
             }
         },
-        mounted() {
-            
+        methods: {
+            logout() {
+                if(confirm("Вы уверены, что хотите выйти из профиля?")){
+                    axios.post('/api/logout/')
+                        .then(resp => {
+                            axios.defaults.headers.common['Authorization'] = 'Bearer ';
+                            localStorage.removeItem( 'token' );
+                            this.$router.push('login')
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+            }
         }
     }
 </script>

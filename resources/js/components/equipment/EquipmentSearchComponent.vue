@@ -8,7 +8,7 @@
 
                         <form>
                         <fieldset :disabled="loading">
-                           
+
                            <div class="container">
                                <div class="row">
                                    <div class="col-md-6 mb-3">
@@ -25,7 +25,7 @@
                                         <label for="EquipmentSearch_search_equipment_type" class="form-label">Тип оборудования</label>
                                         <input name="search_equipment_type" v-model="equipment.search_equipment_type" class="form-control" id="EquipmentSearch_search_equipment_type">
                                     </div>
-                                        
+
 
                                     <div class="col-md-4 mb-3">
                                         <label for="EquipmentSearch_search_serial_number" class="form-label">Серийные номера</label>
@@ -39,14 +39,14 @@
                                </div>
                            </div>
 
-                           <div class="text-center">
+                           <div class="text-center mt-3">
                                 <button type="submit" class="btn btn-primary">Поиск</button>
                                 <a href="?" class="btn btn-secondary">Сбросить</a>
                            </div>
 
                         </fieldset>
-                        </form>                      
-                       
+                        </form>
+
 
                         <error :haveEror="error"></error>
                         <spiner :loading="loading"></spiner>

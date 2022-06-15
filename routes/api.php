@@ -4,6 +4,8 @@ use App\Http\Controllers\EquipmentTypeController;
 use App\Http\Controllers\EquipmentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Auth\LoginController;
+use \App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/get-bearer-token', function (Request $request) {
-    return ['token' => $request->user()->createToken('api')->plainTextToken];
-});
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::get('equipment-type', [EquipmentTypeController::class, 'index'])->name('equipment-type');

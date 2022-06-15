@@ -23,27 +23,16 @@
                         </fieldset>
                         </form>
 
+                        <ul class="nav nav-pills nav-fill">
+                          <li class="nav-item">
+                              <router-link :to="{name: 'equipment-edit', params: {equipmentId: equipment.id}}">Редактировать</router-link>
+                          </li>
+                          <li class="nav-item">
+                            <a @click="deleteEquipment(equipment.id)" class="btn btn-link text-danger">Удалить</a>
+                          </li>
+                        </ul>
 
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">Much longer nav link</a>
-  </li>
-</ul>
-                       
-                       
-
-                        <div class="alert alert-danger" role="alert" v-if="error.haveEror">
-                        {{error.message}}
-                        </div>
-
-                        <div class="d-flex justify-content-center" v-if="loading">
-                            <div class="spinner-grow" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        </div>
+                        <spiner :loading="loading"></spiner>
                     </div>
                 </div>
             </div>
@@ -79,5 +68,19 @@
                 this.loading = false
             })
         },
+        methods: {
+            deleteEquipment(equipmentId)
+            {
+                if(confirm("Вы уверены, что хотите выйти из профиля?")){
+                    axios.post('/equipment/'+equipmentId, {_method: 'DELETE'})
+                        .then(resp => {
+                            this.$router.push('/equipment')
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+            }
+        }
     }
 </script>
