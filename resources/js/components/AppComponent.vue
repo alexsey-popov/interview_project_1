@@ -40,7 +40,7 @@
                         .then(resp => {
                             axios.defaults.headers.common['Authorization'] = 'Bearer ';
                             this.clearToken();
-                            this.$router.push('login');
+                            window.location.href = "/login";
                         })
                         .catch(error => {
                             console.log(error);
