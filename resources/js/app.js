@@ -16,6 +16,7 @@ import AppComponent from './components/AppComponent'
 import Equipment from './components/equipment/EquipmentComponent'
 import EquipmentAdd from './components/equipment/EquipmentAddComponent'
 import EquipmentShow from './components/equipment/EquipmentShowComponent'
+import EquipmentEdit from './components/equipment/EquipmentEditComponent'
 import EquipmentTypes from './components/equipmentTypes/EquipmentTypesComponent'
 import Login from './components/auth/LoginComponent'
 import Register from './components/auth/RegisterComponent'
@@ -38,6 +39,12 @@ const router = new VueRouter({
             path: '/equipment/:equipmentId',
             name: 'equipment-show',
             component: EquipmentShow,
+            props: true,
+        },
+        {
+            path: '/equipment/:equipmentId/edit',
+            name: 'equipment-edit',
+            component: EquipmentEdit,
             props: true,
         },
         {

@@ -9,28 +9,27 @@
 
                     <div class="card-body">
 
-                        <form>
-                        <fieldset disabled>
+                        <form @submit.prevent="submit">
+                        <fieldset :disabled="loading">
                             <legend>{{equipment.equipment_type_name}}</legend>
                             <div class="mb-3">
-                                <label for="serial_number" class="form-label">Серийный номер:</label>
-                                <input :value="equipment.serial_number" type="text" id="serial_number" class="form-control">
+                                <label for="serial_number" class="form-label">Серийный номер (маска {{ equipment.equipment_type_mask }}):</label>
+                                <input v-model="equipment.serial_number" type="text" id="serial_number" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="notes" class="form-label">Примечание:</label>
-                                <input :value="equipment.notes" type="text" id="notes" class="form-control">
+                                <input v-model="equipment.notes" type="text" id="notes" class="form-control">
+                            </div>
+
+                            <div class="row mb-0 mt-4">
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        Сохранить
+                                    </button>
+                                </div>
                             </div>
                         </fieldset>
                         </form>
-
-                        <ul class="nav nav-pills nav-fill">
-                          <li class="nav-item">
-                              <router-link :to="{name: 'equipment-edit', params: {equipmentId: equipment.id}}">Редактировать</router-link>
-                          </li>
-                          <li class="nav-item">
-                            <a @click="deleteEquipment(equipment.id)" class="btn btn-link text-danger">Удалить</a>
-                          </li>
-                        </ul>
 
                         <spiner :loading="loading"></spiner>
                     </div>
@@ -76,17 +75,15 @@
             })
         },
         methods: {
-            deleteEquipment(equipmentId)
+            submit()
             {
-                if(confirm("Вы уверены, что хотите выйти из профиля?")){
-                    axios.delete('/api/equipment/'+equipmentId)
-                        .then(resp => {
-                            this.$router.push({name: 'equipment'})
-                        })
-                        .catch(error => {
-                            console.log(error);
-                        })
-                }
+                axios.put('/api/equipment/'+this.equipmentId, this.equipment)
+                    .then(resp => {
+                        this.$router.push({name: 'equipment-show', params: {equipmentId: this.equipmentId}})
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }
         }
     }
