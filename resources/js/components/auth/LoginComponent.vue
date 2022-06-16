@@ -61,7 +61,7 @@ import EquipmentSearch from '../equipment/EquipmentSearchComponent.vue';
             }
         },
         mounted() {
-            //console.log(window.Laravel.csrfToken)
+
         },
         methods: {
             login() {

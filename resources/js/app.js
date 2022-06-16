@@ -84,6 +84,16 @@ Vue.component('equipment-search', require('./components/equipment/EquipmentSearc
     //    App
     //   )).$mount('#app');
 
+// Базовая проверка авторизации
+Vue.prototype.isAuth = function () {
+    return localStorage.hasOwnProperty('token');
+};
+// Очистка токена аутентификации
+Vue.prototype.clearToken = function () {
+    localStorage.removeItem( 'token' );
+    return true;
+};
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
