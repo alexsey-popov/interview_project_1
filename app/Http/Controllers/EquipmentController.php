@@ -18,7 +18,7 @@ class EquipmentController extends Controller
      */
     public function index(EquipmentFilter $filter)
     {
-        return EquipmentResource::collection(Equipment::filter($filter)->paginate(10));
+        return EquipmentResource::collection(Equipment::filter($filter)->orderBy('id', 'desc')->paginate(10));
     }
 
     /**
