@@ -6,7 +6,7 @@
 
                     <div class="card-body">
 
-                        <form>
+                        <form @submit.prevent="search(equipment)">
                         <fieldset :disabled="loading">
 
                            <div class="container">
@@ -41,12 +41,11 @@
 
                            <div class="text-center mt-3">
                                 <button type="submit" class="btn btn-primary">Поиск</button>
-                                <a href="?" class="btn btn-secondary">Сбросить</a>
+                                <a @click="clear()" class="btn btn-secondary">Сбросить</a>
                            </div>
 
                         </fieldset>
                         </form>
-
 
                         <error :haveEror="error"></error>
                         <spiner :loading="loading"></spiner>
@@ -82,6 +81,22 @@
                  search_notes: this.$route.query.search_notes,
                  search: this.$route.query.search,
              }
+        },
+        methods: {
+            search(data) {
+                this.$router.replace({name : 'equipment', query: data}).catch(()=>{})
+                this.$parent.load(data)
+            },
+            clear() {
+                this.equipment = {
+                    id: null,
+                    search_equipment_type: null,
+                    search_serial_number: null,
+                    search_notes: null,
+                    search: null,
+                }
+                this.search(this.equipment)
+            }
         }
     }
 </script>

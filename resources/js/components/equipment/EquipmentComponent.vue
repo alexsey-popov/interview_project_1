@@ -27,9 +27,13 @@
                             <td><router-link :to="{name: 'equipment-show', params: {equipmentId: equipment.id}}">{{ equipment.serial_number }}</router-link></td>
                             <td>{{ equipment.notes }}</td>
                         </tr>
+                        <tr v-if="!equipmentList.length && !loading">
+                            <td colspan="3" class="pt-3 text-center">
+                                <h3>Список пуст</h3>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-
 
                 <error :haveEror="error"></error>
                 <spiner :loading="loading"></spiner>
@@ -54,15 +58,20 @@ import EquipmentSearch from '../equipment/EquipmentSearchComponent.vue';
             }
         },
         mounted() {
-            axios.get('/api/equipment', { params: this.$route.query }).then(response => {
-                this.equipmentList = response.data.data;
-            })
-            .catch(error => {
-                this.error = true
-            })
-            .finally(() => {
-                this.loading = false
-            })
+            this.load(this.$route.query)
+        },
+        methods: {
+            load(queries) {
+                axios.get('/api/equipment', { params: queries }).then(response => {
+                    this.equipmentList = response.data.data;
+                })
+                    .catch(error => {
+                        this.error = true
+                    })
+                    .finally(() => {
+                        this.loading = false
+                    })
+            }
         }
     }
 </script>
