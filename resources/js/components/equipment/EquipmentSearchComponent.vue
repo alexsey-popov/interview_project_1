@@ -13,28 +13,28 @@
                                <div class="row">
                                    <div class="col-md-6 mb-3">
                                         <label for="EquipmentSearch_search" class="form-label">Поиск</label>
-                                        <input name="search" id="EquipmentSearch_search" class="form-control" v-model="equipment.search" placeholder="По серийному номеру/примечанию">
+                                        <input v-model.trim="equipment.search" name="search" id="EquipmentSearch_search" class="form-control"  placeholder="По серийному номеру/примечанию">
                                    </div>
                                    <div class="col-md-6 mb-3">
                                         <label for="EquipmentSearch_id" class="form-label">Код оборудования</label>
-                                        <input name="id" id="EquipmentSearch_id" class="form-control" v-model="equipment.id">
+                                        <input v-model.trim="equipment.id" name="id" id="EquipmentSearch_id" class="form-control" >
                                    </div>
                                </div>
                                <div class="row">
                                    <div class="col-md-4 mb-3">
                                         <label for="EquipmentSearch_search_equipment_type" class="form-label">Тип оборудования</label>
-                                        <input name="search_equipment_type" v-model="equipment.search_equipment_type" class="form-control" id="EquipmentSearch_search_equipment_type">
+                                        <input v-model.trim="equipment.search_equipment_type" name="search_equipment_type"  class="form-control" id="EquipmentSearch_search_equipment_type">
                                     </div>
 
 
                                     <div class="col-md-4 mb-3">
                                         <label for="EquipmentSearch_search_serial_number" class="form-label">Серийные номера</label>
-                                        <input name="search_serial_number" id="EquipmentSearch_search_serial_number" class="form-control" v-model="equipment.search_serial_number">
+                                        <input v-model.trim="equipment.search_serial_number" name="search_serial_number" id="EquipmentSearch_search_serial_number" class="form-control" >
                                     </div>
 
                                     <div class="col-md-4 mb-3">
                                         <label for="EquipmentSearch_search_notes" class="form-label">Примечание</label>
-                                        <input name="search_notes" id="EquipmentSearch_search_notes" class="form-control" v-model="equipment.search_notes">
+                                        <input v-model.trim="equipment.search_notes" name="search_notes" id="EquipmentSearch_search_notes" class="form-control" >
                                     </div>
                                </div>
                            </div>

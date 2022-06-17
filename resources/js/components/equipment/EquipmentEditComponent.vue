@@ -14,11 +14,11 @@
                             <legend>{{equipment.equipment_type_name}}</legend>
                             <div class="mb-3">
                                 <label for="serial_number" class="form-label">Серийный номер (маска {{ equipment.equipment_type_mask }}):</label>
-                                <input v-model="equipment.serial_number" type="text" id="serial_number" class="form-control">
+                                <input v-model.trim="equipment.serial_number" type="text" id="serial_number" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="notes" class="form-label">Примечание:</label>
-                                <input v-model="equipment.notes" type="text" id="notes" class="form-control">
+                                <input v-model.trim="equipment.notes" type="text" id="notes" class="form-control">
                             </div>
 
                             <div class="row mb-0 mt-4">
