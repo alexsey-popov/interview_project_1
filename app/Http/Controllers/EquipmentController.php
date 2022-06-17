@@ -39,9 +39,9 @@ class EquipmentController extends Controller
      */
     public function store(StoreEquipmentRequest $request)
     {
-        $new = Equipment::create($request->validated());
+        $new = Equipment::createMany($request);
 
-        return new EquipmentResource($new);
+        return EquipmentResource::collection($new);
     }
 
     /**

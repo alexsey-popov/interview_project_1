@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Filters\Filterable;
+use App\Http\Requests\StoreEquipmentRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,7 +37,7 @@ class Equipment extends Model
 
     /**
      * Get the EquipmentType that owns the Equipment.
-     * 
+     *
      * @return App\Models\EquipmentType
      */
     public function equipment_type()
@@ -46,21 +47,39 @@ class Equipment extends Model
 
     /**
      * Get equipment type name
-     * 
+     *
      * @return string
      */
-    public function getEquipmentTypeNameAttribute() 
+    public function getEquipmentTypeNameAttribute()
     {
         return $this->equipment_type->name;
     }
 
     /**
      * Get equipment type mask
-     * 
+     *
      * @return string
      */
-    public function getEquipmentTypeMaskAttribute() 
+    public function getEquipmentTypeMaskAttribute()
     {
         return $this->equipment_type->mask;
+    }
+
+    /**
+     * Create equipments in serial_numbers array
+     * @param StoreEquipmentRequest $request
+     * @return array
+     */
+    public static function createMany(StoreEquipmentRequest $request)
+    {
+        $new = [];
+        foreach ($request->safe()->offsetGet('serial_numbers') as $serialNumber) {
+            $new[] = Equipment::create([
+                'equipment_type_id' => $request->safe()->offsetGet('equipment_type_id'),
+                'serial_number' => $serialNumber,
+                'notes' => $request->safe()->offsetGet('notes'),
+            ]);
+        }
+        return $new;
     }
 }
