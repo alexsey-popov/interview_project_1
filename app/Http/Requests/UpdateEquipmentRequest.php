@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateEquipmentRequest extends FormRequest
 {
@@ -20,7 +21,7 @@ class UpdateEquipmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -32,7 +33,7 @@ class UpdateEquipmentRequest extends FormRequest
     {
         return [
             'equipment_type_id' => 'required|exists:equipment_types,id',
-            'serial_number' => 'required|max:255|unique:equipment,serial_number,'.$this->id,
+            'serial_number' => 'required|max:255|unique:equipment,serial_number,'.$this->id.'|serial_number_mask:'.$this->get('equipment_type_id'),
             'notes' => 'nullable|max:255'
         ];
     }

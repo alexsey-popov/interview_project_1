@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreEquipmentRequest extends FormRequest
 {
@@ -20,7 +21,7 @@ class StoreEquipmentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -32,7 +33,8 @@ class StoreEquipmentRequest extends FormRequest
     {
         return [
             'equipment_type_id' => 'required|exists:equipment_types,id',
-            'serial_number' => 'required|max:255|unique:equipment,serial_number,'.$this->serial_number,
+            'serial_numbers' => 'required|array|',
+            'serial_numbers.*' => 'required|string|distinct|max:255|unique:equipment,serial_number|serial_number_mask:'.$this->get('equipment_type_id'),
             'notes' => 'nullable|max:255'
         ];
     }
@@ -47,9 +49,11 @@ class StoreEquipmentRequest extends FormRequest
         return [
             'equipment_type_id.required' => 'Тип оборудования не указан',
             'equipment_type_id.exists' => 'Тип оборудования не найден',
-            'serial_number.required' => 'Серийный номер не указан',
-            'serial_number.unique' => 'Оборудование с серийным номером :input уже числится в системе',
-            'serial_number.max' => 'Превышена максимальная длина серийного номера',
+            'serial_numbers.required' => 'Серийные номера не указаны',
+            'serial_numbers.*.unique' => 'Оборудование с серийным номером :input уже числится в системе',
+            'serial_numbers.*.max' => 'Превышена максимальная длина серийного номера',
+            'serial_numbers.*.distinct' => 'Оборудование с серийным номером :input указано несколько раз',
+            'serial_numbers.*.serial_number_mask' => 'Серийный номер :input не соответсвует маске его типа.',
             'notes.max' => 'Превышена максимальная длина примечания',
         ];
     }
