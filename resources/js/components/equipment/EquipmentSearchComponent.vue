@@ -88,13 +88,7 @@
                 this.$parent.load(data)
             },
             clear() {
-                this.equipment = {
-                    id: null,
-                    search_equipment_type: null,
-                    search_serial_number: null,
-                    search_notes: null,
-                    search: null,
-                }
+                this.equipment = {}
                 this.search(this.equipment)
             }
         }

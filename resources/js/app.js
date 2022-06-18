@@ -81,7 +81,6 @@ const router = new VueRouter({
 Vue.component('app-component', require('./components/AppComponent.vue').default);
 Vue.component('error', require('./components/templates/Error.vue').default);
 Vue.component('spiner', require('./components/templates/Spiner.vue').default);
-Vue.component('equipment-search', require('./components/equipment/EquipmentSearchComponent.vue').default);
 
 
 // const router = new VueRouter({mode: 'history', routes: routes});

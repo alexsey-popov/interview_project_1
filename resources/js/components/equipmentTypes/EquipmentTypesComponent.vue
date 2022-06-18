@@ -23,6 +23,15 @@
 
                         <error :haveEror="error"></error>
                         <spiner :loading="loading"></spiner>
+                        <b-pagination
+                            v-if="pagination.last_page != 1"
+                            v-model="pagination.current_page"
+                            :total-rows="pagination.total"
+                            :per-page="pagination.per_page"
+                            @change="paginate"
+                            align="center"
+                            class="mt-4"
+                        ></b-pagination>
                     </div>
                 </div>
 
@@ -32,26 +41,47 @@
 </template>
 
 <script>
+import { BPagination } from 'bootstrap-vue'
     export default {
+        components: { 
+            'b-pagination': BPagination
+        },
         data() {
             return {
                 loading: true,
                 equipmentTypes: [],
                 error: false,
+                queries: {},
+                pagination: {
+                    current_page: 1,
+                    total: 0,
+                    per_page: 0,
+                    last_page: 1
+                },
 
             }
         },
         mounted() {
-            axios.get('/api/equipment-type').then(response => {
-                console.log(response);
-                this.equipmentTypes = response.data.data;
-            })
-            .catch(error => {
-                this.error = true
-            })
-            .finally(() => {
-                this.loading = false
-            })
+            this.queries = Object.assign({}, this.$route.query);
+            this.load(this.queries)
+        },
+        methods: {
+            load(queries) {
+                axios.get('/api/equipment-type', { params: queries }).then(response => {
+                    this.equipmentTypes = response.data.data;
+                    this.pagination = response.data.meta;
+                })
+                .catch(error => {
+                    this.error = true
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+            },
+            paginate(page) {
+                this.queries.page = page;
+                this.load(this.queries)
+            }
         }
     }
 </script>
