@@ -76,7 +76,7 @@ class EquipmentType extends Model
             case 'X':
                 return '[A-Z0-9]';
             case 'Z':
-                return '[-|_|@]';
+                return '[-_@]';
         }
     }
 }
