@@ -54,16 +54,22 @@ import EquipmentSearch from '../equipment/EquipmentSearchComponent.vue';
                 loading: true,
                 equipmentList: [],
                 error: false,
+                links: null,
+                queries: {},
 
             }
         },
         mounted() {
-            this.load(this.$route.query)
+            this.queries = this.$route.query;
+            this.load(this.queries)
         },
         methods: {
             load(queries) {
+                this.queries = queries;
                 axios.get('/api/equipment', { params: queries }).then(response => {
+                    this.$router.replace({name : 'equipment', query: queries}).catch(()=>{})
                     this.equipmentList = response.data.data;
+                    this.links = response.data.links;
                 })
                     .catch(error => {
                         this.error = true
