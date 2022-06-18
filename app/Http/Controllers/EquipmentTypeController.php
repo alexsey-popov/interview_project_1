@@ -20,15 +20,6 @@ class EquipmentTypeController extends Controller
         return EquipmentTypeResource::collection(EquipmentType::filter($filter)->paginate(5));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,17 +39,6 @@ class EquipmentTypeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(EquipmentType $equipmentType)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EquipmentType  $equipmentType
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EquipmentType $equipmentType)
     {
         //
     }
