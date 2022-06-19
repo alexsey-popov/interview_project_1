@@ -14,11 +14,28 @@
                             <legend>{{equipment.equipment_type_name}}</legend>
                             <div class="mb-3">
                                 <label for="serial_number" class="form-label">Серийный номер (маска {{ equipment.equipment_type_mask }}):</label>
-                                <input v-model.trim="equipment.serial_number" type="text" id="serial_number" class="form-control">
+                                <input 
+                                    v-model.trim="equipment.serial_number" 
+                                    id="serial_number" 
+                                    type="text" 
+                                    class="form-control"
+                                    v-bind:class="{'is-invalid': $v.equipment.serial_number.$error}">
+                                <span class="invalid-feedback" role="alert">
+                                    <p v-if="!$v.equipment.serial_number.required" class="mb-0">Поле обязательно для заполнения</p>
+                                    <p v-if="!$v.equipment.serial_number.server" v-for="(value, key) in errors.serial_number" :key="key" class="mb-0">{{ value }}</p>
+                                </span>
                             </div>
                             <div class="mb-3">
                                 <label for="notes" class="form-label">Примечание:</label>
-                                <input v-model.trim="equipment.notes" type="text" id="notes" class="form-control">
+                                <input 
+                                    v-model.trim="equipment.notes" 
+                                    id="notes" 
+                                    type="text" 
+                                    class="form-control"
+                                    v-bind:class="{'is-invalid': $v.equipment.notes.$error}">
+                                <span class="invalid-feedback" role="alert">
+                                    <p v-if="!$v.equipment.notes.server" v-for="(value, key) in errors.notes" :key="key" class="mb-0">{{ value }}</p>
+                                </span>
                             </div>
 
                             <div class="row mb-0 mt-4">
@@ -40,7 +57,25 @@
 </template>
 
 <script>
+import { validationMixin } from 'vuelidate'
+const { required } = require('vuelidate/lib/validators')
     export default {
+        mixins: [validationMixin],
+        validations: {
+            equipment: {
+                serial_number: {
+                    required,
+                    server(value) {
+                        return !this.errors.hasOwnProperty('serial_number')
+                    }
+                },
+                notes: {
+                    server(value) {
+                        return !this.errors.hasOwnProperty('notes')
+                    }
+                },
+            },
+        },
         props: [
             'equipmentId'
         ],
@@ -55,10 +90,7 @@
                     equipment_type_mask: null,
                     notes: null
                 },
-                error: {
-                    haveEror: false,
-                    message: ''
-                },
+                errors: {},
 
             }
         },
@@ -67,8 +99,7 @@
                 this.equipment = response.data.data;
             })
             .catch(error => {
-                this.error.message = "Произошла ошибка на строне сервера"
-                this.error.haveEror = true
+                this.errors.submit = true
             })
             .finally(() => {
                 this.loading = false
@@ -77,12 +108,27 @@
         methods: {
             submit()
             {
+                this.errors = {}
+                this.$v.$touch();
+                if (this.$v.$invalid) {
+                    return;
+                }
+
+                this.loading = true;
                 axios.put('/api/equipment/'+this.equipmentId, this.equipment)
                     .then(resp => {
                         this.$router.push({name: 'equipment-show', params: {equipmentId: this.equipmentId}})
                     })
                     .catch(error => {
-                        console.log(error);
+                        // Обрабатываем валидацию с сервера
+                        if(error.status = 422) {
+                            this.errors = error.response.data.errors
+                        } else {
+                            console.log(error)
+                        }
+                    })
+                    .finally(() => {
+                        this.loading = false
                     })
             }
         }

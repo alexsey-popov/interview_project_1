@@ -51,6 +51,7 @@ class UpdateEquipmentRequest extends FormRequest
             'serial_number.required' => 'Серийный номер не указан',
             'serial_number.unique' => 'Оборудование с серийным номером :input уже числится в системе',
             'serial_number.max' => 'Превышена максимальная длина серийного номера',
+            'serial_number.serial_number_mask' => 'Серийный номер :input не соответсвует маске его типа.',
             'notes.max' => 'Превышена максимальная длина примечания',
         ];
     }
