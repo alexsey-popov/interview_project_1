@@ -15,6 +15,13 @@ class Equipment extends Model
     use Filterable;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'equipments';
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

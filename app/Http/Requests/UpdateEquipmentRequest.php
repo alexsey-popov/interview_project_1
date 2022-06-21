@@ -33,7 +33,7 @@ class UpdateEquipmentRequest extends FormRequest
     {
         return [
             'equipment_type_id' => 'required|exists:equipment_types,id',
-            'serial_number' => 'required|max:255|unique:equipment,serial_number,'.$this->id.'|serial_number_mask:'.$this->get('equipment_type_id'),
+            'serial_number' => 'required|max:255|unique:equipments,serial_number,'.$this->id.'|serial_number_mask:'.$this->get('equipment_type_id'),
             'notes' => 'nullable|max:255'
         ];
     }

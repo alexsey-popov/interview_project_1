@@ -34,7 +34,7 @@ class StoreEquipmentRequest extends FormRequest
         return [
             'equipment_type_id' => 'required|exists:equipment_types,id',
             'serial_numbers' => 'required|array|',
-            'serial_numbers.*' => 'required|string|distinct|max:255|unique:equipment,serial_number|serial_number_mask:'.$this->get('equipment_type_id'),
+            'serial_numbers.*' => 'required|string|distinct|max:255|unique:equipments,serial_number|serial_number_mask:'.$this->get('equipment_type_id'),
             'notes' => 'nullable|max:255'
         ];
     }
