@@ -11,7 +11,7 @@
 
                         <form>
                         <fieldset disabled>
-                            <legend>{{equipment.equipment_type_name}}</legend>
+                            <legend>{{equipment.equipment_type.name}}</legend>
                             <div class="mb-3">
                                 <label for="serial_number" class="form-label">Серийный номер:</label>
                                 <input :value="equipment.serial_number" type="text" id="serial_number" class="form-control">
@@ -51,9 +51,11 @@
                 equipment: {
                     id: null,
                     serial_number: null,
-                    equipment_type_id: null,
-                    equipment_type_name: null,
-                    equipment_type_mask: null,
+                    equipment_type: {
+                        id: null,
+                        name: null,
+                        mask: null
+                    },
                     notes: null
                 },
                 error: {

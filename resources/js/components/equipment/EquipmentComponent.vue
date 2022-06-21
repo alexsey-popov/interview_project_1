@@ -23,7 +23,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="equipment in equipmentList" :key="equipment.id">
-                                    <td>{{ equipment.equipment_type_name }}</td>
+                                    <td>{{ equipment.equipment_type.name }}</td>
                                     <td><router-link :to="{name: 'equipment-show', params: {equipmentId: equipment.id}}">{{ equipment.serial_number }}</router-link></td>
                                     <td>{{ equipment.notes }}</td>
                                 </tr>
@@ -37,7 +37,7 @@
 
                         <error :haveEror="error"></error>
                         <spiner :loading="loading"></spiner>
-                
+
                     <b-pagination
                         v-if="pagination.last_page != 1"
                         v-model="pagination.current_page"
@@ -47,7 +47,7 @@
                         align="center"
                         class="mt-4"
                     ></b-pagination>
-                
+
                     </div>
                 </div>
 
@@ -60,7 +60,7 @@
 import EquipmentSearch from '../equipment/EquipmentSearchComponent.vue';
 import { BPagination } from 'bootstrap-vue'
     export default {
-        components: { 
+        components: {
             'equipment-search': EquipmentSearch,
             'b-pagination': BPagination
         },

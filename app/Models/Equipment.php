@@ -53,26 +53,6 @@ class Equipment extends Model
     }
 
     /**
-     * Get equipment type name
-     *
-     * @return string
-     */
-    public function getEquipmentTypeNameAttribute()
-    {
-        return $this->equipmentType->name;
-    }
-
-    /**
-     * Get equipment type mask
-     *
-     * @return string
-     */
-    public function getEquipmentTypeMaskAttribute()
-    {
-        return $this->equipmentType->mask;
-    }
-
-    /**
      * Create equipments in serial_numbers array
      * @param StoreEquipmentRequest $request
      * @return array

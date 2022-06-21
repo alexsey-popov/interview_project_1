@@ -32,8 +32,8 @@ class UpdateEquipmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'equipment_type_id' => 'required|exists:equipment_types,id',
-            'serial_number' => 'required|max:255|unique:equipments,serial_number,'.$this->id.'|serial_number_mask:'.$this->get('equipment_type_id'),
+            'equipment_type.id' => 'required|exists:equipment_types,id',
+            'serial_number' => 'required|max:255|unique:equipments,serial_number,'.$this->id.'|serial_number_mask:'.$this->get('equipment_type')['id'],
             'notes' => 'nullable|max:255'
         ];
     }
@@ -46,8 +46,8 @@ class UpdateEquipmentRequest extends FormRequest
     public function messages()
     {
         return [
-            'equipment_type_id.required' => 'Тип оборудования не указан',
-            'equipment_type_id.exists' => 'Тип оборудования не найден',
+            'equipment_type.id.required' => 'Тип оборудования не указан',
+            'equipment_type.id.exists' => 'Тип оборудования не найден',
             'serial_number.required' => 'Серийный номер не указан',
             'serial_number.unique' => 'Оборудование с серийным номером :input уже числится в системе',
             'serial_number.max' => 'Превышена максимальная длина серийного номера',

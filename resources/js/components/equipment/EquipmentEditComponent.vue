@@ -11,13 +11,13 @@
 
                         <form @submit.prevent="submit">
                         <fieldset :disabled="loading">
-                            <legend>{{equipment.equipment_type_name}}</legend>
+                            <legend>{{equipment.equipment_type.name}}</legend>
                             <div class="mb-3">
-                                <label for="serial_number" class="form-label">Серийный номер (маска {{ equipment.equipment_type_mask }}):</label>
-                                <input 
-                                    v-model.trim="equipment.serial_number" 
-                                    id="serial_number" 
-                                    type="text" 
+                                <label for="serial_number" class="form-label">Серийный номер (маска {{ equipment.equipment_type.mask }}):</label>
+                                <input
+                                    v-model.trim="equipment.serial_number"
+                                    id="serial_number"
+                                    type="text"
                                     class="form-control"
                                     v-bind:class="{'is-invalid': $v.equipment.serial_number.$error}">
                                 <span class="invalid-feedback" role="alert">
@@ -27,10 +27,10 @@
                             </div>
                             <div class="mb-3">
                                 <label for="notes" class="form-label">Примечание:</label>
-                                <input 
-                                    v-model.trim="equipment.notes" 
-                                    id="notes" 
-                                    type="text" 
+                                <input
+                                    v-model.trim="equipment.notes"
+                                    id="notes"
+                                    type="text"
                                     class="form-control"
                                     v-bind:class="{'is-invalid': $v.equipment.notes.$error}">
                                 <span class="invalid-feedback" role="alert">
@@ -86,8 +86,11 @@ const { required } = require('vuelidate/lib/validators')
                     id: null,
                     serial_number: null,
                     equipment_type_id: null,
-                    equipment_type_name: null,
-                    equipment_type_mask: null,
+                    equipment_type: {
+                        id: null,
+                        name: null,
+                        mask: null
+                    },
                     notes: null
                 },
                 errors: {},
