@@ -8,7 +8,7 @@ class EquipmentTypeFilter extends QueryFilter
 {
     /**
      * Find from id
-     * 
+     *
      * @param string $id
      */
     public function id(string $id)
@@ -18,7 +18,7 @@ class EquipmentTypeFilter extends QueryFilter
 
     /**
      * Find from name
-     * 
+     *
      * @param string $name
      */
     public function name(string $name)
@@ -28,31 +28,31 @@ class EquipmentTypeFilter extends QueryFilter
 
     /**
      * Search from name
-     * 
-     * @param string $search_name
+     *
+     * @param string $searchName
      */
-    public function search_name(string $search_name)
+    public function searchName(string $searchName)
     {
-        $this->builder->where('name', '%'.$search_name.'%');
+        $this->builder->where('name', '%'.$searchName.'%');
     }
 
     /**
      * Find from mask
-     * 
+     *
      * @param string $mask
      */
     public function mask(string $mask)
     {
         $this->builder->where('mask', $mask);
-    }    
+    }
 
     /**
      * Search from mask
-     * 
-     * @param string $search_mask
+     *
+     * @param string $searchMask
      */
-    public function search_mask(string $search_mask)
+    public function searchMask(string $searchMask)
     {
-        $this->builder->where('mask', '%'.$search_mask.'%');
-    }    
+        $this->builder->where('mask', '%'.$searchMask.'%');
+    }
 }
