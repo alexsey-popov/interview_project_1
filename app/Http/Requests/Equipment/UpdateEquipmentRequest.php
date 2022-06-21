@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Equipment;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -46,13 +46,13 @@ class UpdateEquipmentRequest extends FormRequest
     public function messages()
     {
         return [
-            'equipment_type.id.required' => 'Тип оборудования не указан',
-            'equipment_type.id.exists' => 'Тип оборудования не найден',
-            'serial_number.required' => 'Серийный номер не указан',
-            'serial_number.unique' => 'Оборудование с серийным номером :input уже числится в системе',
-            'serial_number.max' => 'Превышена максимальная длина серийного номера',
-            'serial_number.serial_number_mask' => 'Серийный номер :input не соответсвует маске его типа.',
-            'notes.max' => 'Превышена максимальная длина примечания',
+            'equipment_type.id.required'        => 'Тип оборудования не указан',
+            'equipment_type.id.exists'          => 'Тип оборудования не найден',
+            'serial_number.required'            => 'Серийный номер не указан',
+            'serial_number.unique'              => 'Оборудование с серийным номером :input уже числится в системе',
+            'serial_number.max'                 => 'Превышена максимальная длина серийного номера',
+            'serial_number.serial_number_mask'  => 'Серийный номер :input не соответсвует маске его типа.',
+            'notes.max'                         => 'Превышена максимальная длина примечания',
         ];
     }
 }

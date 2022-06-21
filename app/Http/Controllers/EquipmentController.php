@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Filters\EquipmentFilter;
-use App\Http\Requests\StoreEquipmentRequest;
-use App\Http\Requests\UpdateEquipmentRequest;
+use App\Http\Requests\Equipment\StoreEquipmentRequest;
+use App\Http\Requests\Equipment\UpdateEquipmentRequest;
 use App\Http\Resources\EquipmentResource;
 use App\Models\Equipment;
 use Illuminate\Http\Response;
@@ -24,7 +24,7 @@ class EquipmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEquipmentRequest  $request
+     * @param  \App\Http\Requests\Equipment\StoreEquipmentRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreEquipmentRequest $request)
@@ -48,7 +48,7 @@ class EquipmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateEquipmentRequest  $request
+     * @param  \App\Http\Requests\Equipment\UpdateEquipmentRequest  $request
      * @param  \App\Models\Equipment  $equipment
      * @return \Illuminate\Http\Response
      */
