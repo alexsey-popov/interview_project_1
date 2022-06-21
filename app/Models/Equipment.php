@@ -47,7 +47,7 @@ class Equipment extends Model
      *
      * @return App\Models\EquipmentType
      */
-    public function equipment_type()
+    public function equipmentType()
     {
         return $this->belongsTo(EquipmentType::class);
     }
@@ -59,7 +59,7 @@ class Equipment extends Model
      */
     public function getEquipmentTypeNameAttribute()
     {
-        return $this->equipment_type->name;
+        return $this->equipmentType->name;
     }
 
     /**
@@ -69,7 +69,7 @@ class Equipment extends Model
      */
     public function getEquipmentTypeMaskAttribute()
     {
-        return $this->equipment_type->mask;
+        return $this->equipmentType->mask;
     }
 
     /**
