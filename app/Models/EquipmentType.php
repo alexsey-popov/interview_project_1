@@ -50,11 +50,11 @@ class EquipmentType extends Model
      */
     public function convertMask()
     {
-        $regexp = '/';
+        $regexp = '/^';
         foreach (str_split($this->mask) as $char) {
             $regexp .= $this->convertMaskChar($char);
         }
-        $regexp .= '/';
+        $regexp .= '$/';
 
         return $regexp;
     }

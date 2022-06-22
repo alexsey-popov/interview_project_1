@@ -4,9 +4,12 @@ namespace App\Models;
 
 use App\Http\Filters\Filterable;
 use App\Http\Requests\Equipment\StoreEquipmentRequest;
+use App\Http\Resources\EquipmentResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ValidatedInput;
 
 class Equipment extends Model
 {
@@ -59,14 +62,63 @@ class Equipment extends Model
      */
     public static function createMany(StoreEquipmentRequest $request)
     {
-        $new = [];
+        $equipmentTypeId = $request->safe()->offsetGet('equipment_type_id');
+        $notes = $request->safe()->offsetGet('notes');
+
+        $result = [];
+
         foreach ($request->safe()->offsetGet('serial_numbers') as $serialNumber) {
-            $new[] = Equipment::create([
-                'equipment_type_id' => $request->safe()->offsetGet('equipment_type_id'),
+            $item = [
+                'equipment_type_id' => $equipmentTypeId,
                 'serial_number' => $serialNumber,
-                'notes' => $request->safe()->offsetGet('notes'),
-            ]);
+                'notes' => $notes,
+            ];
+
+            $validation = self::validate($item);
+
+            $result[] = [
+                'created'   => $validation->passes(),
+                'item'      => $validation->passes() ? Equipment::createEquipment($validation->validated()) : $item,
+                'messages'  => $validation->errors()
+            ];
+
         }
-        return $new;
+
+        return $result;
+    }
+
+    /**
+     * Validation before create equipment
+     * @param array $item
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public static function validate($item)
+    {
+        $rules = [
+            'equipment_type_id' => 'required|exists:equipment_types,id',
+            'serial_number' => 'required|string|max:255|unique:equipments,serial_number|serial_number_mask:'.$item['equipment_type_id'],
+            'notes' => 'nullable|max:255'
+        ];
+        $messages = [
+            'equipment_type_id.required'        => 'Тип оборудования не указан',
+            'equipment_type_id.exists'          => 'Тип оборудования не найден',
+            'serial_number.required'            => 'Серийный номер не указан',
+            'serial_number.unique'              => 'Оборудование с серийным номером :input уже числится в системе',
+            'serial_number.max'                 => 'Превышена максимальная длина серийного номера. Серийный номер должен быть длиной до :max символов',
+            'serial_number.serial_number_mask'  => 'Серийный номер :input не соответсвует маске его типа.',
+            'notes.max'                         => 'Превышена максимальная длина примечания',
+        ];
+
+        return Validator::make($item, $rules, $messages);
+    }
+
+    /**
+     * Create equipment and return EquipmentResource
+     * @param array $item
+     * @return EquipmentResource
+     */
+    public static function createEquipment(array $item) {
+
+        return new EquipmentResource(self::create($item));
     }
 }

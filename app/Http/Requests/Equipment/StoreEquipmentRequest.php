@@ -34,7 +34,7 @@ class StoreEquipmentRequest extends FormRequest
         return [
             'equipment_type_id' => 'required|exists:equipment_types,id',
             'serial_numbers' => 'required|array|',
-            'serial_numbers.*' => 'required|string|distinct|max:255|unique:equipments,serial_number|serial_number_mask:'.$this->get('equipment_type_id'),
+            //'serial_numbers.*' => 'required|string|distinct|max:255|unique:equipments,serial_number|serial_number_mask:'.$this->get('equipment_type_id'),
             'notes' => 'nullable|max:255'
         ];
     }
@@ -50,6 +50,7 @@ class StoreEquipmentRequest extends FormRequest
             'equipment_type_id.required'            => 'Тип оборудования не указан',
             'equipment_type_id.exists'              => 'Тип оборудования не найден',
             'serial_numbers.required'               => 'Серийные номера не указаны',
+            'serial_numbers.array'                  => 'На вход должен быть подан массив серийных номеров',
             'serial_numbers.*.unique'               => 'Оборудование с серийным номером :input уже числится в системе',
             'serial_numbers.*.max'                  => 'Превышена максимальная длина серийного номера. Серийный номер должен быть длиной до :max символов',
             'serial_numbers.*.distinct'             => 'Оборудование с серийным номером :input указано несколько раз',
