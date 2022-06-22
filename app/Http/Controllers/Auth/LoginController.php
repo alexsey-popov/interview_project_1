@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\LoginUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -54,6 +55,9 @@ class LoginController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        return $user->createToken('api')->plainTextToken;
+        return [
+            'user' => new UserResource($user),
+            'token' => $user->createToken('api')->plainTextToken
+        ];
     }
 }

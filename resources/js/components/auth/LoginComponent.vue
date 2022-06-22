@@ -14,15 +14,15 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
 
                                 <div class="col-md-6">
-                                    <input  
-                                        v-model.trim="user.email" 
-                                        id="email" 
-                                        name="email" 
-                                        type="email" 
-                                        class="form-control" 
-                                        v-bind:class="{'is-invalid': $v.user.email.$error}" 
-                                        required 
-                                        autocomplete="email" 
+                                    <input
+                                        v-model.trim="user.email"
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        class="form-control"
+                                        v-bind:class="{'is-invalid': $v.user.email.$error}"
+                                        required
+                                        autocomplete="email"
                                         autofocus>
                                     <span class="invalid-feedback" role="alert">
                                         <p v-if="!$v.user.email.required" class="mb-0">Поле обязательно для заполнения</p>
@@ -35,14 +35,14 @@
                             <div class="row mb-3">
                                 <label for="password" class="col-md-4 col-form-label text-md-end">Пароль</label>
                                 <div class="col-md-6">
-                                    <input 
-                                        v-model.trim="user.password" 
-                                        id="password"  
-                                        name="password" 
-                                        type="password" 
-                                        class="form-control" 
-                                        v-bind:class="{'is-invalid': $v.user.password.$error}" 
-                                        required 
+                                    <input
+                                        v-model.trim="user.password"
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        class="form-control"
+                                        v-bind:class="{'is-invalid': $v.user.password.$error}"
+                                        required
                                         autocomplete="current-password">
                                     <span class="invalid-feedback" role="alert">
                                         <p v-if="!$v.user.password.required" class="mb-0">Поле обязательно для заполнения</p>
@@ -110,8 +110,9 @@ const { required, email } = require('vuelidate/lib/validators')
 
                 this.loading = true
                 axios.post('/api/login', {email: this.user.email, password: this.user.password}).then(r => {
-                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + r.data;
-                    localStorage.setItem( 'token', r.data );
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + r.data.token;
+                    localStorage.setItem( 'user', r.data.user );
+                    localStorage.setItem( 'token', r.data.token );
                     this.$router.push('equipment')
                 })
                     .catch(error => {

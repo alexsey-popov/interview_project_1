@@ -97,6 +97,7 @@ Vue.prototype.isAuth = function () {
 // Очистка токена аутентификации
 Vue.prototype.clearToken = function () {
     localStorage.removeItem( 'token' );
+    localStorage.removeItem( 'user' );
     return true;
 };
 
